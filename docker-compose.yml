@@ -101,17 +101,17 @@ services:
     volumes:
       - qdrant_storage:/qdrant/storage
 
-  # ollama:
-  #   image: ollama/ollama:latest  # Use the official Ollama image
-  #   container_name: ollama
-  #   ports:
-  #     - 11434:11434
-  #   command: |
-  #     ollama pull nomic-embed-text:latest &&
-  #     ollama pull mistral:latest &&
-  #     ollama serve
-  #   environment:
-  #     - MODELS=nomic-embed-text:latest,mistral:latest
+  ollama:
+    image: ollama/ollama:latest  # Use the official Ollama image
+    container_name: ollama
+    ports:
+      - 11434:11434
+    command: |
+      ollama pull nomic-embed-text:latest &&
+      ollama pull mistral:latest &&
+      ollama serve
+    environment:
+      - MODELS=nomic-embed-text:latest,mistral:latest
 
   chatbot:
     image: oydeu/dc-chatbot:latest
