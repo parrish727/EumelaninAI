@@ -22,15 +22,15 @@ x-n8n: &service-n8n
   links:
     - postgres
 
-# x-ollama: &service-ollama
-  # image: ollama/ollama:latest
-  # container_name: ollama
-  # networks: ['demo']
-  # restart: unless-stopped
-  # ports:
-  #   - 11434:11434
-  # volumes:
-  #   - ollama_storage:/root/.ollama
+x-ollama: &service-ollama
+  image: ollama/ollama:latest
+  container_name: ollama
+  networks: ['demo']
+  restart: unless-stopped
+  ports:
+    - 11434:11434
+  volumes:
+    - ollama_storage:/root/.ollama
 
 x-init-ollama: &init-ollama
   image: ollama/ollama:latest
@@ -41,7 +41,7 @@ x-init-ollama: &init-ollama
   entrypoint: /bin/sh
   command:
     - "-c"
-    - "sleep 3; OLLAMA_HOST=ollama:11434 ollama pull llama3.1; OLLAMA_HOST=ollama:11434 ollama pull nomic-embed-text"
+    - "sleep 3; OLLAMA_HOST=ollama:11434 ollama pull llama3.2; OLLAMA_HOST=ollama:11434 ollama pull nomic-embed-text"
 
 services:
   postgres:
@@ -109,7 +109,7 @@ services:
     command: |
       ollama pull nomic-embed-text:latest &&
       ollama pull mistral:latest &&
-      ollama serve
+    #   ollama serve
     environment:
       - MODELS=nomic-embed-text:latest,mistral:latest
 
